@@ -1,0 +1,29 @@
+{
+  "name": "ecs-infrastructure",
+  "version": "1.0.0",
+  "description": "Script wrapper",
+  "scripts": {
+    "init-01": "terraform -chdir=01-Shared-Resources init",
+    "init-02": "terraform -chdir=02-Pipelines init",
+    "init-03": "terraform -chdir=03-Apps-Dev init",
+    "init-04": "terraform -chdir=04-Apps-Staging init",
+    "init-05": "terraform -chdir=05-Apps-Production init",
+    "plan-01": "terraform -chdir=01-Shared-Resources init",
+    "plan-02": "terraform -chdir=02-Pipelines plan",
+    "plan-03": "terraform -chdir=03-Apps-Dev plan",
+    "plan-04": "terraform -chdir=04-Apps-Staging plan",
+    "plan-05": "terraform -chdir=05-Apps-Production plan",
+    "apply-01": "terraform -chdir=01-Shared-Resources apply -auto-approve",
+    "apply-02": "terraform -chdir=02-Pipelines apply -auto-approve",
+    "apply-03": "terraform -chdir=03-Apps-Dev apply -auto-approve",
+    "apply-04": "terraform -chdir=04-Apps-Staging apply -auto-approve",
+    "apply-05": "terraform -chdir=05-Apps-Production apply -auto-approve",
+    "destroy-01": "terraform -chdir=01-Shared-Resources apply -auto-approve -destroy",
+    "destroy-02": "terraform -chdir=02-Pipelines apply -auto-approve -destroy",
+    "destroy-03": "terraform -chdir=03-Apps-Dev apply -auto-approve -destroy",
+    "destroy-04": "terraform -chdir=04-Apps-Staging apply -auto-approve -destroy",
+    "destroy-05": "terraform -chdir=05-Apps-Production apply -auto-approve -destroy"
+  },
+  "author": "",
+  "license": "ISC"
+}

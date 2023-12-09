@@ -1,0 +1,12 @@
+version: 0.2
+
+phases:
+  build:
+    commands:
+      - "echo Fetching last task definitions version"
+      - "ECS_TASK_DEFINITION_ARN=$(aws ecs list-task-definitions --family-prefix $TASK_DEFINITION_FAMILY --sort DESC --max-items 1 | jq '.taskDefinitionArns[0]')"
+      - "ECS_TASK_DEFINITION_WITH_QUOTE=$${ECS_TASK_DEFINITION_ARN#*/}"
+      - "ECS_TASK_DEFINITION=$(echo $ECS_TASK_DEFINITION_WITH_QUOTE | sed 's/\"//')"
+      - "echo $ECS_TASK_DEFINITION"
+      - "echo Executin migration task"
+      - "aws ecs run-task --cluster $ECS_CLUSTER --network-configuration \"awsvpcConfiguration={subnets=[$ECS_SUBNET_ID],securityGroups=[$ECS_SERVICE_SECURITY_GROUP_ID]}\" --task-definition $ECS_TASK_DEFINITION --launch-type FARGATE --count 1 --overrides '{\"containerOverrides\": [{\"name\": \"main\",\"command\": [\"rails\", \"db:migrate\"]}]}'"
